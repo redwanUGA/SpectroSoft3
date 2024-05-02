@@ -2,30 +2,41 @@
 
 The Spectral Processing Tool is a sophisticated Python-based application designed for the in-depth analysis and processing of spectroscopy data. Leveraging a Tkinter GUI, this tool offers an integrated environment for loading, preprocessing, analyzing, and modeling spectral data.
 
-## Key Features
+
+## Features
 
 ### Data Loading
-- **File Compatibility**: Supports `.txt`, `.csv`, and `.xlsx` files, allowing users to load data from various sources.
-- **Interactive GUI**: Users can select files or directories through a user-friendly graphical interface, which simplifies the process of loading and organizing spectral datasets.
+- **Support for Multiple Formats**: The tool can load data from various file formats including plain text (.txt), comma-separated values (.csv), and Excel spreadsheets (.xlsx), accommodating a wide range of data sources.
+- **Graphical User Interface**: Built on Tkinter, the tool provides a graphical interface for easy navigation and operation, allowing users to interactively select and load files or entire directories of data.
 
 ### Preprocessing
-- **Smoothing and Denoising**: Implements Savitzky-Golay filters, wavelet denoising, and FIR filters to smooth spectra and reduce noise.
-- **Normalization**: Features normalization by area or peak to standardize spectra intensities.
-- **Baseline Removal**: Includes methods like Gaussian-Lorentzian fitting (GLF), Modified Polynomial Fitting (ModPoly), and adaptive iteratively reweighted penalized least squares (airPLS).
-- **Despiking and Cropping**: Offers tools to remove spikes and crop spectra to focus on regions of interest.
-- **Interpolation**: Allows resampling of spectra to standardize data points across datasets.
+- **Smoothing Techniques**: Offers several methods to smooth noisy data, including Savitzky-Golay filters, wavelet transformations for denoising, and Finite Impulse Response (FIR) filters.
+- **Normalization Options**: Users can normalize spectra based on the total area under the curve or the height of the peak intensity, standardizing data for better comparison and analysis.
+- **Baseline Removal**: Implements multiple baseline correction methods such as Gaussian-Lorentzian fitting, Modified Polynomial Fitting, and adaptive iteratively reweighted penalized least squares (airPLS) to correct for baseline drifts in spectral data.
+- **Despiking and Cropping**: Provides functionality to identify and remove spikes from data and to crop spectra to focus analyses on specific regions of interest.
+- **Interpolation**: Facilitates the resampling of spectra to standardize the number of data points across different measurements.
 
 ### Statistical Analysis
-- **Spectral Operations**: Calculate average, standard deviation, correlation, and other statistical measures across multiple spectra.
-- **Visualization**: Built-in plotting capabilities to visualize spectra and statistical results directly within the application.
+- **Comprehensive Metrics**: Compute statistical metrics such as mean, standard deviation, and correlation across multiple spectra.
+- **Visualization Tools**: Integrated plotting tools allow for immediate visualization of spectra and statistical outcomes, facilitating a quick assessment of data characteristics and analysis results.
 
 ### Machine Learning
-- **Model Integration**: Includes SVM and LDA for classifying spectra based on their features.
-- **Training and Testing**: Facilitates training with cross-validation and testing, providing metrics like accuracy, precision, recall, and F1-scores.
+- **Classification Algorithms**: Includes support for Support Vector Machines (SVM) and Linear Discriminant Analysis (LDA) to classify spectral data based on their features.
+- **Model Training and Evaluation**: Supports training models with cross-validation to ensure robustness and generalizability and provides evaluation metrics such as accuracy, precision, recall, and F1-scores to assess model performance.
 
-## Installation
+## Code Structure
 
-Before running the application, install the necessary Python libraries using:
+### Main Application (`spectral_processing_tool.py`)
+- **SpectralApp**: Root class for the application, initializing the main window and tabs.
+- **LoadDataTab, PreprocessingTab, StatisticsTab, MachineLearningTab**: Each tab provides a specific set of functionalities and user interface elements for different aspects of spectral processing.
 
-```bash
-pip install numpy pandas scipy matplotlib scikit-learn seaborn pywt dask
+### Data Handling (`database.py`)
+- **SERSSpectra**: A class representing a single spectrum with methods for preprocessing.
+- **SERSSpectraBatch**: Manages a batch of spectra and performs batch operations.
+- **SERSSpectraDataset**: Organizes multiple batches and facilitates data loading and preprocessing for machine learning.
+
+### Utilities (`utils.py`)
+- **airPLS**: Function for baseline removal using adaptive iteratively reweighted penalized least squares.
+- **mixed_gauss_lorentz**: Implements a combined Gaussian-Lorentzian function for fitting spectral baselines.
+- **align_spectra, calculate_first_derivative**: Functions for aligning spectra and calculating derivatives, which are essential for certain preprocessing and analysis tasks.
+
